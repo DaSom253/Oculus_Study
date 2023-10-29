@@ -8,15 +8,15 @@ public class EnemyOne : EnemyBase
 {
     public static EnemyOne instance;
     private Rigidbody rigid;
-    public NavMeshAgent nav;
+    NavMeshAgent nav;
 
     [Header("Setting")]
     public Transform target;
     public Image enemy_HpBar;
     public Image enemy_HpBar_Back;
     private float maxHp;
-    public float currentHp; // 새로운 변수 추가
-    public bool isDead = false;
+    private float currentHp; // 새로운 변수 추가
+    private bool isDead = false;
     public float pushForce;
 
     private void Start()
@@ -31,7 +31,7 @@ public class EnemyOne : EnemyBase
         }
     }
 
-
+    // Start is called before the first frame update
     void Awake()
     {
         nav = GetComponent<NavMeshAgent>();
@@ -39,7 +39,7 @@ public class EnemyOne : EnemyBase
         EnemyOne.instance = this;
     }
 
-
+    // Update is called once per frame
     void Update()
     {
         nav.SetDestination(target.position);
@@ -52,10 +52,6 @@ public class EnemyOne : EnemyBase
         if (currentHp <= 0f && !isDead)
         {
             EnemyDeath();
-            if (gameObject.name == "Enemy_5(Clone)")
-            {
-                DropItem.instance.BossDeathEffect(new Vector3(transform.position.x, transform.position.y, transform.position.z));
-            }
         }
     }
 
@@ -71,17 +67,12 @@ public class EnemyOne : EnemyBase
         // 뒤로 밀리는 힘을 추가
         Vector3 pushDirection = (transform.position - player.transform.position).normalized;
         rigid.AddForce(pushDirection * pushForce, ForceMode.Impulse);
-        GameManager.instance.audioManager.Play(AudioManager.AudioType.MonsterDamage, true);
+
         // 몬스터의 색깔을 하얗게 변하게 함
-        //StartCoroutine(FlashColor(0.2f));
+        StartCoroutine(FlashColor(0.2f));
 
         // 현재 체력 감소
         currentHp -= (player.damage + BulletDamage);
-
-        if(gameObject.name == "Enemy_1(Clone)")
-        {
-            SlimeSmaller();
-        }
     }
 
     private IEnumerator FlashColor(float duration)
@@ -110,7 +101,6 @@ public class EnemyOne : EnemyBase
         gameObject.GetComponent<BoxCollider>().enabled = false;
         DropItem.instance.EnemyDeathEffect(new Vector3(transform.position.x, transform.position.y, transform.position.z));
         DropItem.instance.RandomItemDrop(new Vector3(transform.position.x, transform.position.y - 0.4f, transform.position.z));
-        GameManager.instance.audioManager.Play(AudioManager.AudioType.MonsterDeath, true);
         Destroy(gameObject);
     }
 
@@ -121,27 +111,4 @@ public class EnemyOne : EnemyBase
         enemy_HpBar_Back.transform.LookAt(target);
     }
 
-<<<<<<< HEAD
-=======
-    public void MonsterRandomAnim()
-    {
-        if (monsterAnim)
-        {
-            rnd = Random.Range(0f, 1.0f);
-            monsterAnim.SetFloat("Offset", rnd);
-        }
-        else
-        {
-            return;
-        }
-
-    }
-
-    void SlimeSmaller()
-    {
-        GameObject clone = gameObject;
-        clone.transform.position = transform.position;
-        clone.transform.localScale = transform.localScale * 0.85f;
-    }
->>>>>>> 2b22af4e9ba4c5ac4a03c5edaef71308a0741ffc
 }

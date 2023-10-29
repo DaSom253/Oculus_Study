@@ -24,7 +24,7 @@ public class SS_Gun : MonoBehaviour
     {
         // ÃÑ¾Ë ÇÁ¸®ÆÕ »ý¼º
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnL.position, bulletSpawnL.rotation);
-        GameManager.instance.audioManager.Play(AudioManager.AudioType.Shoot, true);
+
         // ÃÑ¾Ë ¹ß»ç
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
 
@@ -36,7 +36,7 @@ public class SS_Gun : MonoBehaviour
     {
         // ÃÑ¾Ë ÇÁ¸®ÆÕ »ý¼º
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnR.position, bulletSpawnR.rotation);
-        GameManager.instance.audioManager.Play(AudioManager.AudioType.Shoot, true);
+
         // ÃÑ¾Ë ¹ß»ç
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bulletSpeed;
 

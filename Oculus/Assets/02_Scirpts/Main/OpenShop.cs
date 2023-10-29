@@ -27,20 +27,11 @@ public class OpenShop : MonoBehaviour
             statShop.Shop.SetActive(true);
         }
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            GameManager.instance.audioManager.Play(AudioManager.AudioType.ShopOpen, true);
-        }
-    }
 
     private void OnTriggerExit(Collider other)
     {
         statShop.BackShopBtn();
         //MouseControll.instance.Lock();
         statShop.Shop.SetActive(false);
-        GameManager.instance.audioManager.Play(AudioManager.AudioType.ShopClose, true);
-
     }
 }

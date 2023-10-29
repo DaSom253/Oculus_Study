@@ -21,7 +21,6 @@ public class Coin : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             GameManager.instance.coin += 50;
-            GameManager.instance.audioManager.Play(AudioManager.AudioType.GetCoin, true);
             Destroy(gameObject);
         }
     }

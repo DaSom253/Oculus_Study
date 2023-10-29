@@ -74,7 +74,6 @@ public class StatShop : MonoBehaviour
                 shopCoin -= 100;
                 healCount += 1;
                 DataManager.instance.playerData.hpUp += healCount;
-                GameManager.instance.audioManager.Play(AudioManager.AudioType.StatUp, true);
             }
             else
             {
@@ -94,7 +93,6 @@ public class StatShop : MonoBehaviour
                 shopCoin -= 100;
                 healTimeCount += 1;
                 DataManager.instance.playerData.hpUp += healTimeCount;
-                GameManager.instance.audioManager.Play(AudioManager.AudioType.StatUp, true);
             }
             else
             {
@@ -112,7 +110,6 @@ public class StatShop : MonoBehaviour
                 shopCoin -= 100;
                 damagedCount += 1;
                 DataManager.instance.playerData.hpUp += damagedCount;
-                GameManager.instance.audioManager.Play(AudioManager.AudioType.StatUp, true);
             }
             else
             {
@@ -130,7 +127,6 @@ public class StatShop : MonoBehaviour
                 shopCoin -= 100;
                 speedCount += 1;
                 DataManager.instance.playerData.hpUp += speedCount;
-                GameManager.instance.audioManager.Play(AudioManager.AudioType.StatUp, true);
             }
             else
             {
@@ -151,7 +147,6 @@ public class StatShop : MonoBehaviour
 
     public void ResetBtn()
     {
-        GameManager.instance.audioManager.Play(AudioManager.AudioType.StatReset, true);
         shopCoin += (healCount + damagedCount + healTimeCount + speedCount) * 100;
         healCount = 0;
         damagedCount = 0;

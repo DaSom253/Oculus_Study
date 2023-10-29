@@ -2,8 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 public class Levelloader : MonoBehaviour {
-    [System.Obsolete]
-    void OnGUI ()
+
+	void OnGUI ()
 	{
 		// Make a background box
 		GUI.Box (new Rect (10, 10, 140, 310), "Loader Menu");

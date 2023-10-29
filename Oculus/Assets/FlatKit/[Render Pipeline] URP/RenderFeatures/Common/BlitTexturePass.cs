@@ -77,33 +77,33 @@ internal class BlitTexturePass : ScriptableRenderPass {
 #endif
 
             // Also seen as `renderingData.cameraData.xr.enabled` and `#if ENABLE_VR && ENABLE_XR_MODULE`.
-//            if (renderingData.cameraData.xrRendering) {
-//                _effectMaterial.EnableKeyword("_USE_DRAW_PROCEDURAL"); // `UniversalRenderPipelineCore.cs`.
-//#if UNITY_2022_1_OR_NEWER
-//#pragma warning disable CS0618
-//                cmd.SetRenderTarget(_temporaryColorTexture);
-//                cmd.DrawMesh(RenderingUtils.fullscreenMesh, Matrix4x4.identity, _effectMaterial, 0, 0);
-//                cmd.SetGlobalTexture("_EffectTexture", _temporaryColorTexture);
-//                cmd.SetRenderTarget(new RenderTargetIdentifier(cameraTargetHandle, 0, CubemapFace.Unknown, -1));
-//                cmd.DrawMesh(RenderingUtils.fullscreenMesh, Matrix4x4.identity, _copyMaterial, 0, 0);
-//#else
-//                cmd.SetRenderTarget(_temporaryColorTexture.Identifier());
-//                cmd.DrawMesh(RenderingUtils.fullscreenMesh, Matrix4x4.identity, _effectMaterial, 0, 0);
-//                cmd.SetGlobalTexture("_EffectTexture", _temporaryColorTexture.Identifier());
-//                cmd.SetRenderTarget(new RenderTargetIdentifier(cameraTargetHandle, 0, CubemapFace.Unknown, -1));
-//                cmd.DrawMesh(RenderingUtils.fullscreenMesh, Matrix4x4.identity, _copyMaterial, 0, 0);
-//#endif
-//            } else {
-//                _effectMaterial.DisableKeyword("_USE_DRAW_PROCEDURAL");
-//                // Note: `FinalBlitPass` has `cmd.SetRenderTarget` at this point, but it's unclear what that does.
-//#if UNITY_2022_1_OR_NEWER
-//                cmd.Blit(cameraTargetHandle, _temporaryColorTexture, _effectMaterial, 0);
-//                cmd.Blit(_temporaryColorTexture, cameraTargetHandle);
-//#else
-//                cmd.Blit(cameraTargetHandle, _temporaryColorTexture.Identifier(), _effectMaterial, 0);
-//                cmd.Blit(_temporaryColorTexture.Identifier(), cameraTargetHandle);
-//#endif
-//            }
+            if (renderingData.cameraData.xrRendering) {
+                _effectMaterial.EnableKeyword("_USE_DRAW_PROCEDURAL"); // `UniversalRenderPipelineCore.cs`.
+#if UNITY_2022_1_OR_NEWER
+#pragma warning disable CS0618
+                cmd.SetRenderTarget(_temporaryColorTexture);
+                cmd.DrawMesh(RenderingUtils.fullscreenMesh, Matrix4x4.identity, _effectMaterial, 0, 0);
+                cmd.SetGlobalTexture("_EffectTexture", _temporaryColorTexture);
+                cmd.SetRenderTarget(new RenderTargetIdentifier(cameraTargetHandle, 0, CubemapFace.Unknown, -1));
+                cmd.DrawMesh(RenderingUtils.fullscreenMesh, Matrix4x4.identity, _copyMaterial, 0, 0);
+#else
+                cmd.SetRenderTarget(_temporaryColorTexture.Identifier());
+                cmd.DrawMesh(RenderingUtils.fullscreenMesh, Matrix4x4.identity, _effectMaterial, 0, 0);
+                cmd.SetGlobalTexture("_EffectTexture", _temporaryColorTexture.Identifier());
+                cmd.SetRenderTarget(new RenderTargetIdentifier(cameraTargetHandle, 0, CubemapFace.Unknown, -1));
+                cmd.DrawMesh(RenderingUtils.fullscreenMesh, Matrix4x4.identity, _copyMaterial, 0, 0);
+#endif
+            } else {
+                _effectMaterial.DisableKeyword("_USE_DRAW_PROCEDURAL");
+                // Note: `FinalBlitPass` has `cmd.SetRenderTarget` at this point, but it's unclear what that does.
+#if UNITY_2022_1_OR_NEWER
+                cmd.Blit(cameraTargetHandle, _temporaryColorTexture, _effectMaterial, 0);
+                cmd.Blit(_temporaryColorTexture, cameraTargetHandle);
+#else
+                cmd.Blit(cameraTargetHandle, _temporaryColorTexture.Identifier(), _effectMaterial, 0);
+                cmd.Blit(_temporaryColorTexture.Identifier(), cameraTargetHandle);
+#endif
+            }
         }
 
         context.ExecuteCommandBuffer(cmd);

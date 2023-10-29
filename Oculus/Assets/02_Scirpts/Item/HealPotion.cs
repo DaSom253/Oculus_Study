@@ -20,7 +20,6 @@ public class HealPotion : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             GameManager.instance.player.Heal(100f);
-            GameManager.instance.audioManager.Play(AudioManager.AudioType.Heal, true);
             Destroy(gameObject);
         }
     }
