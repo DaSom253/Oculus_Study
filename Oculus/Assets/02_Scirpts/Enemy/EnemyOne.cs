@@ -19,6 +19,9 @@ public class EnemyOne : EnemyBase
     private bool isDead = false;
     public float pushForce;
 
+    public Animator monsterAnim;
+    public float rnd;
+
     private void Start()
     {
         maxHp = enemy_Hp;
@@ -109,6 +112,12 @@ public class EnemyOne : EnemyBase
         enemy_HpBar.fillAmount = currentHp / maxHp; // 현재 체력 사용
         enemy_HpBar.transform.LookAt(target);
         enemy_HpBar_Back.transform.LookAt(target);
+    }
+
+    public void MonsterRandomAnim()
+    {
+        rnd = Random.Range(0f, 1.0f);
+        monsterAnim.SetFloat("Offset", rnd);
     }
 
 }
